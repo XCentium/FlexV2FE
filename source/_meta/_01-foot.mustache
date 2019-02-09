@@ -3,6 +3,19 @@
 			
 	<!--DO NOT REMOVE-->
 	{{{ patternLabFoot }}}
-	
+	<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+	<script>
+	Vue.component('f-button', {
+  data: function () {
+    return {
+      count: 0
+    }
+  },
+  template: '<button type="button"><slot /></button>'
+})
+	var app = new Vue({
+  el: '#app'
+})
+	</script>
 	</body>
 </html>

@@ -11,6 +11,7 @@ const patternEngines = require("patternlab-node/core/lib/pattern_engines");
 const merge = require("webpack-merge");
 const customization = require(`${plConfig.paths.source.app}/webpack.app.js`);
 const UglifyJsPlugin = require("uglifyjs-webpack-plugin");
+const VueLoaderPlugin = require('vue-loader/lib/plugin')
 
 module.exports = env => {
   const { ifProduction, ifDevelopment } = getIfUtils(env);
@@ -145,7 +146,8 @@ module.exports = env => {
 
             patternlab.build(() => {}, cleanPublic);
           }
-        })
+        }),
+        new VueLoaderPlugin()
       ]),
       devServer: {
         contentBase: resolve(__dirname, plConfig.paths.public.root),
@@ -158,6 +160,10 @@ module.exports = env => {
       },
       module: {
         rules: [
+          {
+            test: /\.vue$/,
+            loader: 'vue-loader'
+          },
           {
             test: /\.js$/,
             exclude: /(node_modules|bower_components)/,
